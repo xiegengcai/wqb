@@ -2,7 +2,7 @@
 
 A better machine lib.
 
-Features:
+**FEATURES:**
 
 - [WorldQuant BRAIN](https://platform.worldquantbrain.com/)
 - [PyPI (Python Package Index)](https://pypi.org/)
@@ -24,7 +24,7 @@ Features:
 
 ## Prerequisites
 
-Please first make sure you have a proper Python (>=3.11) enviroment ([virtualenv](https://virtualenv.pypa.io/), [conda](https://anaconda.org/), etc.).
+Please first make sure you have a proper [Python](https://www.python.org/) (>=3.11) enviroment ([virtualenv](https://virtualenv.pypa.io/), [conda](https://anaconda.org/), etc.).
 
 - Python >= 3.11
 - Connecting to the Internet
@@ -32,8 +32,8 @@ Please first make sure you have a proper Python (>=3.11) enviroment ([virtualenv
 ### Create a new conda environment *(Optional but Recommended)*
 
 ```sh
-conda create -y -n wqb python>=3.11
-conda activate wqb
+conda create -y -n wqb-py311 python=3.11
+conda activate wqb-py311
 ```
 
 ### Install
@@ -50,9 +50,9 @@ python -m pip install wqb --upgrade --extra-index-url https://pypi.org/simple
 
 ## Usage
 
-PLEASE ALWAYS REMEMBER:
+**PLEASE ALWAYS REMEMBER:**
 
-- Manual authentication requesting *(including the initial one)* is **never needed**. Just imagine using a permanent session that never expires.
+- Manual authentication requests *(including the initial one)* are **never needed**. Just imagine using a permanent session that never expires.
 - All **positional arguments** are **required**, and vice versa.
 - All **keyword arguments** are **optional**, and vice versa.
   - Always use the default values of these arguments when you don't know what they mean.
@@ -97,8 +97,8 @@ handler2.setFormatter(logging.Formatter('# %(levelname)s %(asctime)s\n%(message)
 logger.addHandler(handler2)
 
 # Manual logging
-logger.info('This is an info for testing.')
-logger.warning('This is a warning for testing.')
+# logger.info('This is an info for testing.')
+# logger.warning('This is a warning for testing.')
 ```
 
 ### Create a `wqb.WQBSession` object
@@ -298,7 +298,7 @@ resp = wqbs.filter_alpha_limited(
     delay=1,
     universe='TOP3000',
     sharpe=FilterRange.from_str('[1.58, inf)'),
-    fitness=FilterRange.from_str('[2, inf)'),
+    fitness=FilterRange.from_str('[1, inf)'),
     turnover=FilterRange.from_str('(-inf, 0.7]'),
     date_created=FilterRange.from_str(f"[{lo.isoformat()}, {hi.isoformat()})"),
     order='dateCreated',
@@ -321,7 +321,7 @@ resps = wqbs.filter_alpha(
     delay=1,
     universe='TOP3000',
     sharpe=FilterRange.from_str('[1.58, inf)'),
-    fitness=FilterRange.from_str('[2, inf)'),
+    fitness=FilterRange.from_str('[1, inf)'),
     turnover=FilterRange.from_str('(-inf, 0.7]'),
     date_created=FilterRange.from_str(f"[{lo.isoformat()}, {hi.isoformat()})"),
     order='dateCreated',
@@ -407,7 +407,7 @@ resps = asyncio.run(
     wqbs.concurrent_simulate(
         multi_alphas,  # `alphas` or `multi_alphas`
         concurrency,
-        # return_exceptions=False,
+        # return_exceptions=True,
         # on_nolocation=lambda vars: print(vars['target'], vars['resp'], sep='\n'),
         # on_start=lambda vars: print(vars['url']),
         # on_finish=lambda vars: print(vars['resp']),
@@ -453,7 +453,7 @@ resps = asyncio.run(
     wqbs.concurrent_check(
         alpha_ids,
         concurrency,
-        # return_exceptions=False,
+        # return_exceptions=True,
         # on_start=lambda vars: print(vars['url']),
         # on_finish=lambda vars: print(vars['resp']),
         # on_success=lambda vars: print(vars['resp']),
