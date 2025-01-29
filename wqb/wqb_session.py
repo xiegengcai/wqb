@@ -869,6 +869,22 @@ class WQBSession(AutoAuthSession):
         try:
             url = resp.headers[LOCATION]
         except KeyError as e:
+            self.logger.warning(
+                '\n'.join(
+                    (
+                        f"{self}.simulate(...) [",
+                        f"    {target}",
+                        f"]:",
+                        f"{resp}:",
+                        f"    status_code: {resp.status_code}",
+                        f"    reason: {resp.reason}",
+                        f"    url: {resp.url}",
+                        f"    elapsed: {resp.elapsed}",
+                        f"    headers: {resp.headers}",
+                        f"    text: {resp.text}",
+                    )
+                )
+            )
             if on_nolocation is not None:
                 on_nolocation(locals())
             return None
