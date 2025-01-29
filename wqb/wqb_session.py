@@ -65,6 +65,7 @@ def print(
 
 
 def wqb_logger(
+    *,
     name: str | None = None,
 ) -> logging.Logger:
     if name is None:
@@ -132,6 +133,8 @@ class WQBSession(AutoAuthSession):
     def __init__(
         self,
         wqb_auth: tuple[str, str] | HTTPBasicAuth,
+        *,
+        logger: logging.Logger = logging.root,
         **kwargs,
     ) -> None:
         if not isinstance(wqb_auth, HTTPBasicAuth):
@@ -142,6 +145,7 @@ class WQBSession(AutoAuthSession):
             URL_AUTHENTICATION,
             auth_expected=lambda resp: 201 == resp.status_code,
             expected=lambda resp: resp.status_code not in (204, 401, 429),
+            logger=logger,
             **kwargs,
         )
         self.expected_location = (
