@@ -15,6 +15,7 @@ __all__ = [
     'URL_USERS_SELF_ALPHAS',
 ]
 
+
 HTTP_API_WORLDQUANTBRAIN_COM = 'http://api.worldquantbrain.com'
 HTTPS_API_WORLDQUANTBRAIN_COM = 'https://api.worldquantbrain.com'
 

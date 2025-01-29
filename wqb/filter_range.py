@@ -6,6 +6,7 @@ from typing import Self
 
 __all__ = ['FilterRange']
 
+
 _isinf = isinf
 isinf = lambda x: isinstance(x, float) and _isinf(x)
 

@@ -69,18 +69,18 @@ def wqb_logger(
 ) -> logging.Logger:
     if name is None:
         name = 'wqb' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-    logger = logging.getLogger(name)
+    logger = logging.getLogger(name=name)
     logger.setLevel(logging.INFO)
     handler1 = logging.FileHandler(f"{logger.name}.log")
     handler1.setLevel(logging.INFO)
     handler1.setFormatter(
-        logging.Formatter('# %(levelname)s %(asctime)s\n%(message)s\n')
+        logging.Formatter(fmt='# %(levelname)s %(asctime)s\n%(message)s\n')
     )
     logger.addHandler(handler1)
     handler2 = logging.StreamHandler()
     handler2.setLevel(logging.WARNING)
     handler2.setFormatter(
-        logging.Formatter('# %(levelname)s %(asctime)s\n%(message)s\n')
+        logging.Formatter(fmt='# %(levelname)s %(asctime)s\n%(message)s\n')
     )
     logger.addHandler(handler2)
     return logger
