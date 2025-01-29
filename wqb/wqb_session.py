@@ -888,6 +888,7 @@ class WQBSession(AutoAuthSession):
                 '\n'.join(
                     (
                         f"{self}.simulate(...) [",
+                        f"    {repr(e)}",
                         f"    {target}",
                         f"]:",
                         f"{resp}:",
