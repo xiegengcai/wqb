@@ -76,25 +76,13 @@ python -m pip install wqb --upgrade --extra-index-url https://pypi.org/simple
 ### Create a `logging.Logger` object *(Optional but Recommended)*
 
 ```python
-import datetime
-import logging
+import wqb
 
 # Create `logger`
-t = datetime.datetime.now()
-logger = logging.getLogger('wqb' + t.strftime('%Y%m%d%H%M%S'))
-logger.setLevel(logging.INFO)
-
-# Output to a new file
-handler1 = logging.FileHandler(f"{logger.name}.log")
-handler1.setLevel(logging.INFO)
-handler1.setFormatter(logging.Formatter('# %(levelname)s %(asctime)s\n%(message)s\n'))
-logger.addHandler(handler1)
-
-# Output to console (terminal)
-handler2 = logging.StreamHandler()
-handler2.setLevel(logging.WARNING)
-handler2.setFormatter(logging.Formatter('# %(levelname)s %(asctime)s\n%(message)s\n'))
-logger.addHandler(handler2)
+logger = wqb.wqb_logger()
+# Use the following line instead to customize `logger.name` and set the log filename as '<name>.log' as a result.
+# logger = wqb.wqb_logger(name='<name>')
+print(f"{logger.name = }", flush=True)
 
 # Manual logging
 # logger.info('This is an info for testing.')
@@ -104,8 +92,7 @@ logger.addHandler(handler2)
 ### Create a `wqb.WQBSession` object
 
 ```python
-import wqb
-from wqb import WQBSession
+from wqb import WQBSession, print
 
 # Create `wqbs`
 wqbs = WQBSession(('<xxx@mail.com>', '<password>'), logger=logger)
