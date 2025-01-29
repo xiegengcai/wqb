@@ -1,3 +1,13 @@
+'''
+A better machine lib.
+
+PyPI: https://pypi.org/project/wqb/
+GitHub: https://github.com/rocky-d/wqb
+'''
+
+__version__ = '0.2.2'
+
+
 from typing import Any
 
 GET = 'GET'
@@ -42,6 +52,7 @@ class Null:
 
 NULL = Null()
 
+
 from . import auto_auth_session
 from . import datetime_range
 from . import filter_range
@@ -55,13 +66,7 @@ __all__ = (
     + wqb_session.__all__
     + wqb_urls.__all__
 )
-del (
-    auto_auth_session,
-    datetime_range,
-    filter_range,
-    wqb_session,
-    wqb_urls,
-)
+
 
 from .auto_auth_session import *
 from .datetime_range import *
