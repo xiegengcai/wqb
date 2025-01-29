@@ -1,11 +1,12 @@
 import asyncio
+import datetime
 import itertools
+import logging
 from collections.abc import Awaitable, Callable, Coroutine, Generator, Iterable, Sized
 from typing import Any
 from requests import Response
 from requests.auth import HTTPBasicAuth
 from . import (
-    NULL,
     GET,
     POST,
     LOCATION,
@@ -49,7 +50,29 @@ from .wqb_urls import (
     URL_USERS_SELF_ALPHAS,
 )
 
-__all__ = ['WQBSession', 'to_multi_alphas', 'concurrent_await']
+__all__ = ['WQBSession', 'wqb_logger', 'to_multi_alphas', 'concurrent_await']
+
+
+def wqb_logger(
+    name: str | None = None,
+) -> logging.Logger:
+    if name is None:
+        name = 'wqb' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    handler1 = logging.FileHandler(f"{logger.name}.log")
+    handler1.setLevel(logging.INFO)
+    handler1.setFormatter(
+        logging.Formatter('# %(levelname)s %(asctime)s\n%(message)s\n')
+    )
+    logger.addHandler(handler1)
+    handler2 = logging.StreamHandler()
+    handler2.setLevel(logging.WARNING)
+    handler2.setFormatter(
+        logging.Formatter('# %(levelname)s %(asctime)s\n%(message)s\n')
+    )
+    logger.addHandler(handler2)
+    return logger
 
 
 def to_multi_alphas(

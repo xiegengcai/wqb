@@ -1,6 +1,6 @@
+import logging
 import time
 from collections.abc import Callable
-from logging import Logger, root
 from requests import Response, Session
 
 __all__ = ['AutoAuthSession']
@@ -19,7 +19,7 @@ class AutoAuthSession(Session):
         expected: Callable[[Response], bool] = lambda _: True,
         max_tries: int = 3,
         delay_unexpected: float = 2.0,
-        logger: Logger = root,
+        logger: logging.Logger = logging.root,
         **kwargs,
     ) -> None:
         super().__init__()
