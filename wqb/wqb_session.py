@@ -50,7 +50,18 @@ from .wqb_urls import (
     URL_USERS_SELF_ALPHAS,
 )
 
-__all__ = ['WQBSession', 'wqb_logger', 'to_multi_alphas', 'concurrent_await']
+__all__ = ['print', 'wqb_logger', 'to_multi_alphas', 'concurrent_await', 'WQBSession']
+
+
+_print = print
+
+
+def print(
+    *args,
+    **kwargs,
+) -> None:
+    kwargs['flush'] = True
+    _print(*args, **kwargs)
 
 
 def wqb_logger(
