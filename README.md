@@ -14,9 +14,9 @@ A better machine lib.
   - Automatic Authentication (Anti-Expiration / Expiration-Proof)
 - [Various Requests](#usage)
   - [Search Operators](#operators)
-  - [Locate & Search Datasets](#datasets)
-  - [Locate & Search Fields](#fields)
-  - [Locate & Search Alphas](#alphas)
+  - [Locate / Search Datasets](#datasets)
+  - [Locate / Search Fields](#fields)
+  - [Locate / Filter Alphas](#alphas)
   - [Patch Properties](#alphas)
   - [(Asynchronous & Concurrent) Simulate](#simulate)
   - [(Asynchronous & Concurrent) Check Submission](#check)
@@ -29,7 +29,7 @@ Please first make sure you have a proper [Python](https://www.python.org/) (>=3.
 - Python >= 3.11
 - Connecting to the Internet
 
-### Create a new conda environment *(Optional but Recommended)*
+### Create a new conda environment *(Optional)*
 
 ```sh
 conda create -y -n wqb-py311 python=3.11
@@ -271,7 +271,7 @@ resp = wqbs.locate_alpha(alpha_id)
 # print(resp.json())
 ```
 
-#### `wqb.WQBSession.filter_alpha_limited(...)`
+#### `wqb.WQBSession.filter_alphas_limited(...)`
 
 ```python
 from datetime import datetime
@@ -279,7 +279,7 @@ from wqb import FilterRange
 
 lo = datetime.fromisoformat('2025-01-28T00:00:00-05:00')
 hi = datetime.fromisoformat('2025-01-29T00:00:00-05:00')
-resp = wqbs.filter_alpha_limited(
+resp = wqbs.filter_alphas_limited(
     status='UNSUBMITTED',
     region='USA',
     delay=1,
@@ -294,7 +294,7 @@ alpha_ids = [item['id'] for item in resp.json()['results']]
 # print(alpha_ids)
 ```
 
-#### `wqb.WQBSession.filter_alpha(...)`
+#### `wqb.WQBSession.filter_alphas(...)`
 
 ```python
 from datetime import datetime
@@ -302,7 +302,7 @@ from wqb import FilterRange
 
 lo = datetime.fromisoformat('2025-01-28T00:00:00-05:00')
 hi = datetime.fromisoformat('2025-01-29T00:00:00-05:00')
-resps = wqbs.filter_alpha(
+resps = wqbs.filter_alphas(
     status='UNSUBMITTED',
     region='USA',
     delay=1,
