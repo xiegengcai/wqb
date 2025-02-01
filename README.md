@@ -122,7 +122,7 @@ for item in resp.json():
     name = item['name']
     category = item['category']
     if category not in operators_by_category:
-        operators_by_category = []
+        operators_by_category[category] = []
     operators_by_category[category].append(name)
 # print(operators_by_category)
 ```
