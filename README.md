@@ -2,7 +2,7 @@
 
 A better machine lib.
 
-**FEATURES:**
+## HIGHLIGHTS
 
 - [WorldQuant BRAIN](https://platform.worldquantbrain.com/)
 - [PyPI (Python Package Index)](https://pypi.org/)
@@ -22,7 +22,7 @@ A better machine lib.
   - [(Asynchronous & Concurrent) Check Submission](#check)
   - [(Asynchronous & Concurrent) Submit](#submit)
 
-## Prerequisites
+## PREREQUISITES
 
 Please first make sure you have a proper [Python](https://www.python.org/) (>=3.11) enviroment ([virtualenv](https://virtualenv.pypa.io/), [conda](https://anaconda.org/), etc.).
 
@@ -48,7 +48,7 @@ python -m pip install wqb
 python -m pip install wqb --upgrade --extra-index-url https://pypi.org/simple
 ```
 
-## Usage
+## USAGE
 
 **PLEASE ALWAYS REMEMBER:**
 
