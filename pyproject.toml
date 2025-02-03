@@ -5,9 +5,7 @@ build-backend = 'setuptools.build_meta'
 [project]
 name = 'wqb'
 dynamic = ['version']
-authors = [
-    { name = 'Rocky Haotian Du', email = 'rocky_haotian_du@hotmail.com' },
-]
+authors = [{ name = 'Rocky Haotian Du', email = 'rocky_d@yeah.net' }]
 description = 'A better machine lib.'
 license = { file = 'LICENSE' }
 readme = 'README.md'
