@@ -68,6 +68,25 @@ def wqb_logger(
     *,
     name: str | None = None,
 ) -> logging.Logger:
+    """
+    Returns a pre-configured `logging.Logger` object.
+
+    INFO logs are written to both the .log file and the console.
+
+    WARNING logs are written to the console only.
+
+    Parameters
+    ----------
+    name: str | None = None
+        `logging.Logger.name`. If None, it is set to 'wqb' followed by
+        the current datetime. The filename of the .log file is set to
+        `name` followed by '.log'.
+
+    Returns
+    -------
+    logging.Logger
+        A pre-configured `logging.Logger` object.
+    """
     if name is None:
         name = 'wqb' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     logger = logging.getLogger(name=name)
@@ -91,6 +110,33 @@ def to_multi_alphas(
     alphas: Iterable[Alpha],
     multiple: int | Iterable[Any],
 ) -> Generator[MultiAlpha, None, None]:
+    """
+    Converts an iterable series of `Alpha` objects to an iterable series
+    of `MultiAlpha` objects.
+
+    Parameters
+    ----------
+    alphas: Iterable[Alpha]
+        The iterable series of `Alpha` objects.
+    multiple: int | Iterable[Any]
+        The number of `Alpha` objects to be grouped into a `MultiAlpha`
+        object. If int, the `Alpha` objects are grouped by it. If
+        Iterable[Any], the `Alpha` objects are grouped by its length.
+
+    Returns
+    -------
+    Iterable[MultiAlpha]
+        An iterable series of `MultiAlpha` objects.
+
+    Examples
+    --------
+    >>> alphas = [{...} for _ in range(6)]
+    >>> alphas
+    [{...}, {...}, {...}, {...}, {...}, {...}]
+    >>> multi_alphas = list(to_multi_alphas(alphas, 3))
+    >>> multi_alphas
+    [[{...}, {...}, {...}], [{...}, {...}, {...}]]
+    """
     alphas = iter(alphas)
     multiple = range(multiple) if isinstance(multiple, int) else tuple(multiple)
     try:

@@ -1,9 +1,9 @@
-'''
+"""
 A better machine lib.
 
 PyPI: https://pypi.org/project/wqb/
 GitHub: https://github.com/rocky-d/wqb
-'''
+"""
 
 __version__ = '0.2.4'
 
