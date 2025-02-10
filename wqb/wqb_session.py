@@ -60,6 +60,24 @@ def print(
     *args,
     **kwargs,
 ) -> None:
+    """
+    Prints, and then flushes instantly.
+
+    The usage is the same as the built-in `print`.
+
+    Parameters
+    ----------
+    See also the built-in `print`.
+
+    Returns
+    -------
+    None
+
+    Notes
+    -----
+    `args` and `kwargs` are passed to the built-in `print`. `flush` is
+    overridden to True no matter what.
+    """
     kwargs['flush'] = True
     _print(*args, **kwargs)
 
@@ -78,7 +96,7 @@ def wqb_logger(
     Parameters
     ----------
     name: str | None = None
-        `logging.Logger.name`. If None, it is set to 'wqb' followed by
+        `logging.Logger.name`. If *None*, it is set to 'wqb' followed by
         the current datetime. The filename of the .log file is set to
         `name` followed by '.log'.
 
@@ -120,8 +138,8 @@ def to_multi_alphas(
         The iterable series of `Alpha` objects.
     multiple: int | Iterable[Any]
         The number of `Alpha` objects to be grouped into a `MultiAlpha`
-        object. If int, the `Alpha` objects are grouped by it. If
-        Iterable[Any], the `Alpha` objects are grouped by its length.
+        object. If *int*, the `Alpha` objects are grouped by it. If
+        *Iterable[Any]*, the `Alpha` objects are grouped by its length.
 
     Returns
     -------
@@ -156,6 +174,29 @@ async def concurrent_await(
     concurrency: int | asyncio.Semaphore | None = None,
     return_exceptions: bool = False,
 ) -> Coroutine[None, None, list[Any | BaseException]]:
+    """
+    Returns a `Coroutine` object that awaits an iterable series of
+    `Awaitable` objects with a concurrency limit that controls the
+    maximum number of `Awaitable` objects that can be awaited at the
+    same time.
+
+    Parameters
+    ----------
+    awaitables: Iterable[Awaitable[Any]]
+        The iterable series of `Awaitable` objects.
+    concurrency: int | asyncio.Semaphore | None = None
+        The maximum number of `Awaitable` objects that can be awaited at
+        the same time. If *int | asyncio.Semaphore*, the concurrency
+        limit is set to it. If *None*, there is no concurrency limit.
+    return_exceptions: bool = False
+        Whether to return exceptions instead of raising them.
+
+    Returns
+    -------
+    Coroutine[None, None, list[Any | BaseException]]
+        A `Coroutine` object that awaits `Awaitable` objects
+        concurrently.
+    """
     if concurrency is None:
         return await asyncio.gather(*awaitables)
     if isinstance(concurrency, int):
@@ -164,6 +205,20 @@ async def concurrent_await(
     async def semaphore_wrapper(
         awaitable: Awaitable[Any],
     ) -> Coroutine[None, None, Any]:
+        """
+        Wraps an `Awaitable` object with `concurrency`.
+
+        Parameters
+        ----------
+        awaitable: Awaitable[Any]
+            The `Awaitable` object to be wrapped.
+
+        Returns
+        -------
+        Coroutine[None, None, Any]
+            A `Coroutine` object that awaits the wrapped `Awaitable`
+            object.
+        """
         async with concurrency:
             result = await awaitable
         return result
@@ -175,6 +230,9 @@ async def concurrent_await(
 
 
 class WQBSession(AutoAuthSession):
+    """
+    A class that implements the common APIs of WorldQuant BRAIN platform.
+    """
 
     def __init__(
         self,
