@@ -151,7 +151,7 @@ def to_multi_alphas(
     >>> alphas = [{...} for _ in range(6)]
     >>> alphas
     [{...}, {...}, {...}, {...}, {...}, {...}]
-    >>> multi_alphas = list(to_multi_alphas(alphas, 3))
+    >>> multi_alphas = list(wqb.to_multi_alphas(alphas, 3))
     >>> multi_alphas
     [[{...}, {...}, {...}], [{...}, {...}, {...}]]
     """
@@ -231,7 +231,7 @@ async def concurrent_await(
 
 class WQBSession(AutoAuthSession):
     """
-    A class that implements the common APIs of WorldQuant BRAIN platform.
+    A class that implements common APIs of WorldQuant BRAIN platform.
     """
 
     def __init__(
@@ -241,6 +241,40 @@ class WQBSession(AutoAuthSession):
         logger: logging.Logger = logging.root,
         **kwargs,
     ) -> None:
+        """
+        Initializes a `WQBSession` object.
+
+        Parameters
+        ----------
+        wqb_auth: tuple[str, str] | HTTPBasicAuth
+            The authentication credentials that consist of email and
+            password.
+        logger: logging.Logger = logging.root
+            The `logging.Logger` object to log requests.
+
+        Returns
+        -------
+        None
+
+        Notes
+        -----
+        No `args` are accepted, while `kwargs` are passed to
+        `AutoAuthSession.__init__`.
+
+        Examples
+        --------
+        Without setting `logger`:
+
+        >>> wqbs = wqb.WQBSession(('<email>', '<password>'))
+
+        With setting `logger` (Recommended):
+
+        >>> logger = wqb.wqb_logger()
+        >>> wqbs = wqb.WQBSession(
+        ...     ('<email>', '<password>'),
+        ...     logger=logger,
+        ... )
+        """
         if not isinstance(wqb_auth, HTTPBasicAuth):
             wqb_auth = HTTPBasicAuth(*wqb_auth)
         kwargs['auth'] = wqb_auth
@@ -256,13 +290,26 @@ class WQBSession(AutoAuthSession):
             lambda resp: self.expected(resp) and LOCATION in resp.headers
         )
 
-    def __repr__(self):
+    def __repr__(
+        self,
+    ) -> str:
+        """
+        Returns a string representation of the `WQBSession` object.
+
+        Returns
+        -------
+        str
+            A string representation of the `WQBSession` object.
+        """
         return f"<WQBSession [{repr(self.wqb_auth.username)}]>"
 
     @property
     def wqb_auth(
         self,
     ) -> HTTPBasicAuth:
+        """
+        `wqb_auth`
+        """
         return self.kwargs['auth']
 
     @wqb_auth.setter
@@ -270,6 +317,9 @@ class WQBSession(AutoAuthSession):
         self,
         wqb_auth: tuple[str, str] | HTTPBasicAuth,
     ) -> None:
+        """
+        `wqb_auth`
+        """
         if not isinstance(wqb_auth, HTTPBasicAuth):
             wqb_auth = HTTPBasicAuth(*wqb_auth)
         self.kwargs['auth'] = wqb_auth
@@ -280,6 +330,30 @@ class WQBSession(AutoAuthSession):
         log: str | None = '',
         **kwargs,
     ) -> Response:
+        """
+        Sends a GET request to `URL_AUTHENTICATION`.
+
+        Parameters
+        ----------
+        log: str | None = ''
+            The message to be appended. If *None*, logging is disabled.
+
+        Returns
+        -------
+        Response
+            A `Response` object.
+
+        Notes
+        -----
+        `args` and `kwargs` are passed to `Session.get`.
+
+        Examples
+        --------
+        >>> wqbs = wqb.WQBSession(('<email>', '<password>'))
+        >>> resp = wqbs.get_authentication()
+        >>> resp.ok
+        True
+        """
         url = URL_AUTHENTICATION
         resp = self.get(url, *args, **kwargs)
         if log is not None:
@@ -300,6 +374,30 @@ class WQBSession(AutoAuthSession):
         log: str | None = '',
         **kwargs,
     ) -> Response:
+        """
+        Sends a POST request to `URL_AUTHENTICATION`.
+
+        Parameters
+        ----------
+        log: str | None = ''
+            The message to be appended. If *None*, logging is disabled.
+
+        Returns
+        -------
+        Response
+            A `Response` object.
+
+        Notes
+        -----
+        `args` and `kwargs` are passed to `Session.post`.
+
+        Examples
+        --------
+        >>> wqbs = wqb.WQBSession(('<email>', '<password>'))
+        >>> resp = wqbs.post_authentication(auth=wqbs.wqb_auth)
+        >>> resp.ok
+        True
+        """
         url = URL_AUTHENTICATION
         resp = self.post(url, *args, auth=self.wqb_auth, **kwargs)
         if log is not None:
@@ -320,6 +418,30 @@ class WQBSession(AutoAuthSession):
         log: str | None = '',
         **kwargs,
     ) -> Response:
+        """
+        Sends a DELETE request to `URL_AUTHENTICATION`.
+
+        Parameters
+        ----------
+        log: str | None = ''
+            The message to be appended. If *None*, logging is disabled.
+
+        Returns
+        -------
+        Response
+            A `Response` object.
+
+        Notes
+        -----
+        `args` and `kwargs` are passed to `Session.delete`.
+
+        Examples
+        --------
+        >>> wqbs = wqb.WQBSession(('<email>', '<password>'))
+        >>> resp = wqbs.delete_authentication()
+        >>> resp.ok
+        True
+        """
         url = URL_AUTHENTICATION
         resp = self.delete(url, *args, **kwargs)
         if log is not None:
@@ -340,6 +462,30 @@ class WQBSession(AutoAuthSession):
         log: str | None = '',
         **kwargs,
     ) -> Response:
+        """
+        Sends a HEAD request to `URL_AUTHENTICATION`.
+
+        Parameters
+        ----------
+        log: str | None = ''
+            The message to be appended. If *None*, logging is disabled.
+
+        Returns
+        -------
+        Response
+            A `Response` object.
+
+        Notes
+        -----
+        `args` and `kwargs` are passed to `Session.head`.
+
+        Examples
+        --------
+        >>> wqbs = wqb.WQBSession(('<email>', '<password>'))
+        >>> resp = wqbs.head_authentication()
+        >>> resp.ok
+        True
+        """
         url = URL_AUTHENTICATION
         resp = self.head(url, *args, **kwargs)
         if log is not None:

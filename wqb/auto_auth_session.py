@@ -34,7 +34,17 @@ class AutoAuthSession(Session):
         self.delay_unexpected = max(0.0, delay_unexpected)
         self.logger = logger
 
-    def __repr__(self):
+    def __repr__(
+        self,
+    ) -> str:
+        """
+        Returns a string representation of the `AutoAuthSession` object.
+
+        Returns
+        -------
+        str
+            A string representation of the `AutoAuthSession` object.
+        """
         return f"<AutoAuthSession []>"
 
     def auth_request(
