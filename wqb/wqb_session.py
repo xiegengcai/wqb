@@ -506,6 +506,30 @@ class WQBSession(AutoAuthSession):
         log: str | None = '',
         **kwargs,
     ) -> Response:
+        """
+        Sends a GET request to `URL_OPERATORS`.
+
+        Parameters
+        ----------
+        log: str | None = ''
+            The message to be appended. If *None*, logging is disabled.
+
+        Returns
+        -------
+        Response
+            A `Response` object.
+
+        Notes
+        -----
+        `args` and `kwargs` are passed to `Session.get`.
+
+        Examples
+        --------
+        >>> wqbs = wqb.WQBSession(('<email>', '<password>'))
+        >>> resp = wqbs.search_operators()
+        >>> resp.ok
+        True
+        """
         url = URL_OPERATORS
         resp = self.get(url, *args, **kwargs)
         if log is not None:
@@ -527,6 +551,33 @@ class WQBSession(AutoAuthSession):
         log: str | None = '',
         **kwargs,
     ) -> Response:
+        """
+        Sends a GET request to
+        `URL_DATASETS_DATASETID.format(dataset_id)`.
+
+        Parameters
+        ----------
+        dataset_id: str
+            The dataset ID.
+        log: str | None = ''
+            The message to be appended. If *None*, logging is disabled.
+
+        Returns
+        -------
+        Response
+            A `Response` object.
+
+        Notes
+        -----
+        `args` and `kwargs` are passed to `Session.get`.
+
+        Examples
+        --------
+        >>> wqbs = wqb.WQBSession(('<email>', '<password>'))
+        >>> resp = wqbs.locate_dataset('pv1')
+        >>> resp.ok
+        True
+        """
         url = URL_DATASETS_DATASETID.format(dataset_id)
         resp = self.get(url, *args, **kwargs)
         if log is not None:
