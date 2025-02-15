@@ -80,9 +80,7 @@ import wqb
 
 # Create `logger`
 logger = wqb.wqb_logger()
-# Use the following line instead to customize `logger.name` and set the log filename as '<name>.log' as a result.
-# logger = wqb.wqb_logger(name='<name>')
-print(f"{logger.name = }", flush=True)
+wqb.print(f"{logger.name = }")  # print(f"{logger.name = }", flush=True)
 
 # Manual logging
 # logger.info('This is an info for testing.')
@@ -95,9 +93,9 @@ print(f"{logger.name = }", flush=True)
 from wqb import WQBSession, print
 
 # Create `wqbs`
-wqbs = WQBSession(('<xxx@mail.com>', '<password>'), logger=logger)
+wqbs = WQBSession(('<email>', '<password>'), logger=logger)
 # If `logger` was not created, use the following line instead.
-# wqbs = WQBSession(('<xxx@mail.com>', '<password>'))
+# wqbs = WQBSession(('<email>', '<password>'))
 
 # Test connectivity (Optional)
 resp = wqbs.auth_request()
