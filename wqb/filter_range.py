@@ -158,7 +158,7 @@ class FilterRange:
         inf_as: str | None = None,
     ) -> list[str]:
         if try_eq and self.lo == self.hi:
-            return ['=' + self.lo]
+            return ['=' + str(self.lo)]
         conditions = []
         if not (_isinf(self.lo) and inf_as is None):
             conditions.append(
