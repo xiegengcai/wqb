@@ -5,7 +5,7 @@ PyPI: https://pypi.org/project/wqb/
 GitHub: https://github.com/rocky-d/wqb
 """
 
-__version__ = '0.2.4'
+__version__ = '0.2.5'
 
 
 from typing import Any
