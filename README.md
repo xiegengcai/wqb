@@ -70,7 +70,7 @@ python -m pip install wqb --upgrade --extra-index-url https://pypi.org/simple
     - `'<content>'` will be appended to the log entry, and also enables log.
   - `log_gap: int`
     - A method has `log_gap` **if and only if** it returns `Iterable[requests.Response]`, and vice versa.
-    - A sub-log will be logged `if 0 != log_gap and 0 == idx % log_gap` (`idx` starts from `1`).
+    - A sub-log will be logged `if 0 != log_gap and 0 == idx % log_gap` where `idx` starts from `1`.
     - `0` disables sub-log.
 
 ### Create a `logging.Logger` object *(Optional but Recommended)*

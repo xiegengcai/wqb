@@ -987,6 +987,7 @@ class WQBSession(AutoAuthSession):
         if others is not None:
             params.extend(others)
         url = URL_USERS_SELF_ALPHAS + '?' + '&'.join(params)
+        url = url.replace('+', '%2B')  # TODO: Can be improved.
         resp = self.get(url, *args, **kwargs)
         if log is not None:
             self.logger.info(
