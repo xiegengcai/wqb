@@ -1,13 +1,11 @@
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from datetime import datetime
-from math import inf, isinf
+from math import inf
+from math import isinf as __isinf
 from typing import Any, Self
 
 __all__ = ['FilterRange']
-
-
-__isinf = isinf
 
 
 def _isinf(
