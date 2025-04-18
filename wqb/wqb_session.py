@@ -1345,8 +1345,20 @@ class WQBSession(AutoAuthSession):
         **kwargs,
     ) -> Coroutine[None, None, Response | None]:
         url = URL_ALPHAS_ALPHAID_SUBMIT.format(alpha_id)
+        resp = self.post(
+            url,
+            expected=self.expected_location,
+            max_tries=60,
+            delay_unexpected=5.0,
+        )
+        # first post, if 403 fail, server check fail
+        if resp.status_code == 403:
+            return resp
+        
+        # else 201, get server check result.
+        # if 403 fail, server check fail
         resp = await self.retry(
-            POST, url, *args, max_tries=max_tries, log=retry_log, **kwargs
+            GET, url, *args, max_tries=max_tries, log=retry_log, **kwargs
         )
         if log is not None:
             self.logger.info(
